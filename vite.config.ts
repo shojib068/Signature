@@ -32,8 +32,33 @@ function pdfjsAssets(): Plugin {
   };
 }
 
+// Static hosts can't send headers, so production builds carry the CSP as a meta tag too.
+// It matches the header in server/app.ts (frame-ancestors only works as a header).
+const CSP_META = [
+  "default-src 'self'",
+  "script-src 'self' 'wasm-unsafe-eval'",
+  "img-src 'self' blob: data:",
+  "font-src 'self' data:",
+  "worker-src 'self' blob:",
+  "style-src 'self' 'unsafe-inline'",
+  "connect-src 'self'",
+  "object-src 'none'",
+  "base-uri 'none'",
+  "form-action 'none'",
+].join('; ');
+
+function cspMeta(): Plugin {
+  return {
+    name: 'csp-meta',
+    apply: 'build',
+    transformIndexHtml: () => [{ tag: 'meta', attrs: { 'http-equiv': 'Content-Security-Policy', content: CSP_META }, injectTo: 'head-prepend' }],
+  };
+}
+
 export default defineConfig({
-  plugins: [react(), pdfjsAssets()],
+  // GitHub Pages serves the site from /<repo>/; the Docker build serves it from /.
+  base: process.env.BASE_PATH ?? '/',
+  plugins: [react(), pdfjsAssets(), cspMeta()],
   server: {
     proxy: { '/api': 'http://localhost:3001' },
   },

@@ -2,6 +2,8 @@
 
 Sign a PDF or Word (.docx) document on your own computer, for free. Draw your signature or upload a photo of it, drag it where it belongs, resize it, and download the signed file as PDF or Word.
 
+**Try it now: https://shojib068.github.io/Signature/** (signs PDFs in your browser. For Word files, run it on your laptop as described below.)
+
 - No account, no sign-up, no watermark, no fees.
 - **PDFs never leave your computer.** They are signed inside your browser.
 - Word files are converted by a small server that runs on your own laptop, and each file is deleted as soon as the conversion is done. Nothing is stored, logged or tracked.

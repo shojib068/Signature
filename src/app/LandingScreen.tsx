@@ -47,11 +47,18 @@ export function LandingScreen({ onFile, busy, acceptsWord }: LandingScreenProps)
 
         <section className="privacy" aria-labelledby="privacy-title">
           <h2 id="privacy-title">What happens to your file</h2>
-          <p>
-            PDFs are signed entirely on your device and never uploaded. Word files, and PDFs you save as Word, are
-            converted on our server, then deleted as soon as the converted file is sent back. Nothing is stored, logged
-            or tracked, and there are no accounts.
-          </p>
+          {acceptsWord ? (
+            <p>
+              PDFs are signed entirely on your device and never uploaded. Word files, and PDFs you save as Word, are
+              converted on our server, then deleted as soon as the converted file is sent back. Nothing is stored,
+              logged or tracked, and there are no accounts.
+            </p>
+          ) : (
+            <p>
+              Your document is signed entirely on your device and never uploaded anywhere. Nothing is stored, logged
+              or tracked, and there are no accounts.
+            </p>
+          )}
         </section>
       </main>
     </div>
