@@ -1,0 +1,15 @@
+services:
+  signer:
+    build: .
+    image: free-document-signer
+    ports:
+      - "3001:3001"
+    environment:
+      PORT: 3001
+      MAX_JOBS: 2
+      HOME: /tmp
+    # Conversion temp files live here and are deleted after each request; tmpfs keeps them off disk.
+    tmpfs:
+      - /tmp:size=512m
+    read_only: true
+    restart: unless-stopped
